@@ -133,8 +133,107 @@ nav {
     transform: translateY(-1px);
 }
 
-/*SCHEDULE_CSS*/
+/*Section shared*/
+.schedule,
+.trainers,
+.membership {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    border-top: 1px solid var(--line);
+}
+
+.schedule h2,
+.trainers h2,
+.membership h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+
+/*Schedule (Grid: one column per day)*/
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.day h3 {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--volt);
+}
+
+.class-slot {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--volt);
+    border-radius: 0.75rem;
+    padding: 0.85rem;
+    transition: transform 0.15s;
+}
+
+.class-slot:hover {
+    transform: translateY(-2px);
+}
+
+.time {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--volt);
+}
+
+.class-name {
+    font-weight: 600;
+    margin-top: 0.15rem;
+}
+
+.coach {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+}
 /*TRAINERS_CSS*/
 /*MEMBERSHIP_CSS*/
 /*FOOTER_CSS*/
-/*RESPONSIVE_CSS*/
+/*responsive*/
+@media (max-width: 900px) {
+    .schedule-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    nav {
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero {
+        padding: 3rem 1.5rem 2.5rem;
+    }
+
+    .hero h1 {
+        font-size: 2.25rem;
+    }
+
+    .hero .subtext {
+        font-size: 1rem;
+    }
+
+    .schedule-grid {
+        grid-template-columns: 1fr;
+    }
+}
