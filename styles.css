@@ -260,10 +260,14 @@ h2 {
 .coach {
     font-size: 0.85rem;
     color: var(--ink-soft);
-    text-transform: capitalize;
 }
 
-/*Trainers (Flexbox: cards wrap and share row space)*/
+/*Trainers
+  WHY FLEXBOX: this is a one-dimensional list whose length will change as
+  coaches join or leave. flex: 1 1 220px lets each card grow to fill its
+  row, and wrapping happens by itself with no breakpoint. In Grid, a
+  leftover card on the last row would sit in a fixed column and leave a
+  hole.*/
 .trainer-list {
     display: flex;
     flex-wrap: wrap;
@@ -318,7 +322,20 @@ h2 {
     color: var(--ink-soft);
 }
 
-/*Membership (Grid: equal columns, featured card lifted)*/
+.quote {
+    margin-top: auto;
+    padding-top: 1rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+/*Membership
+  WHY GRID: tiers are only comparable if they are the same width and their
+  rows line up, so three equal columns (repeat(3, 1fr)). The featured card
+  is set apart with a border and badge instead of being scaled up, so it
+  never breaks the alignment. At 900px it becomes one column in the same
+  order, because comparing stacked cards still works on a phone.*/
 .pricing-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -360,7 +377,14 @@ h2 {
 .amount {
     font-size: 2.5rem;
     font-weight: 800;
+    font-family: var(--font-display);
     margin: 0.5rem 0 1.25rem;
+}
+
+.per-class {
+    font-size: 0.85rem;
+    color: var(--clay);
+    margin: -0.75rem 0 1.25rem;
 }
 
 .amount span {
