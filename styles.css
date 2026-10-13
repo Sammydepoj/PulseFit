@@ -7,14 +7,14 @@
 
 /*Design Token*/
 :root {
-    --bg: #0f1115;
-    --surface: #181b22;
-    --ink: #f4f5f7;
-    --ink-soft: #9aa0ad;
-    --volt: #c6f432;
-    --volt-dark: #a6d11a;
-    --coral: #ff5d4a;
-    --line: #2a2f3a;
+    --bg: #f4f1ea;
+    --surface: #fbf9f5;
+    --ink: #2a2d28;
+    --ink-soft: #666b62;
+    --sage: #4f6b57;
+    --sage-deep: #3d5545;
+    --clay: #a8745a;
+    --line: #ddd8cc;
     --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -64,7 +64,7 @@ nav {
 }
 
 .logo span {
-    color: var(--volt);
+    color: var(--sage);
 }
 
 .nav-links {
@@ -79,7 +79,7 @@ nav {
 }
 
 .nav-links a:hover {
-    color: var(--volt);
+    color: var(--sage);
 }
 
 /*Hero*/
@@ -93,7 +93,7 @@ nav {
     font-size: 0.8rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--volt);
+    color: var(--sage);
     margin-bottom: 1rem;
 }
 
@@ -105,7 +105,7 @@ nav {
 }
 
 .hero h1 span {
-    color: var(--volt);
+    color: var(--sage);
 }
 
 .hero .subtext {
@@ -119,7 +119,7 @@ nav {
     display: inline-block;
     margin-top: 2rem;
     padding: 0.85rem 1.75rem;
-    background: var(--volt);
+    background: var(--sage);
     color: var(--bg);
     font-weight: 700;
     border-radius: 999px;
@@ -129,7 +129,7 @@ nav {
 }
 
 .btn:hover {
-    background: var(--volt-dark);
+    background: var(--sage-deep);
     transform: translateY(-1px);
 }
 
@@ -167,13 +167,13 @@ nav {
     font-size: 0.8rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--volt);
+    color: var(--sage);
 }
 
 .class-slot {
     background: var(--surface);
     border: 1px solid var(--line);
-    border-left: 3px solid var(--volt);
+    border-left: 3px solid var(--sage);
     border-radius: 0.75rem;
     padding: 0.85rem;
     transition: transform 0.15s;
@@ -186,7 +186,7 @@ nav {
 .time {
     font-size: 0.8rem;
     font-weight: 700;
-    color: var(--volt);
+    color: var(--sage);
 }
 
 .class-name {
@@ -219,14 +219,14 @@ nav {
 }
 
 .trainer-card:hover {
-    box-shadow: 0 8px 24px rgba(198, 244, 50, 0.1);
+    box-shadow: 0 8px 24px rgba(42, 45, 40, 0.08);
 }
 
 .avatar {
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
-    background: var(--volt);
+    background: var(--sage);
     color: var(--bg);
     font-size: 1.5rem;
     font-weight: 800;
@@ -244,7 +244,7 @@ nav {
     font-size: 0.8rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--volt);
+    color: var(--sage);
     margin: 0.25rem 0 0.75rem;
 }
 
@@ -272,15 +272,15 @@ nav {
 }
 
 .price-card.featured {
-    border-color: var(--volt);
-    box-shadow: 0 8px 32px rgba(198, 244, 50, 0.12);
+    border-color: var(--sage);
+    box-shadow: 0 8px 32px rgba(42, 45, 40, 0.08);
 }
 
 .badge {
     position: absolute;
     top: -0.75rem;
     left: 1.5rem;
-    background: var(--coral);
+    background: var(--clay);
     color: white;
     font-size: 0.75rem;
     font-weight: 700;
@@ -315,7 +315,7 @@ nav {
 
 .perks li::before {
     content: "✓ ";
-    color: var(--volt);
+    color: var(--sage);
     font-weight: 700;
 }
 
@@ -326,12 +326,12 @@ nav {
 
 .btn-outline {
     background: transparent;
-    color: var(--volt);
-    border: 1px solid var(--volt);
+    color: var(--sage);
+    border: 1px solid var(--sage);
 }
 
 .btn-outline:hover {
-    background: var(--volt);
+    background: var(--sage);
     color: var(--bg);
 }
 /*footer*/
@@ -355,7 +355,7 @@ footer {
 }
 
 .footer-logo span {
-    color: var(--volt);
+    color: var(--sage);
 }
 
 .footer-brand p:last-child {
@@ -384,7 +384,7 @@ footer {
 }
 
 .footer-links a:hover {
-    color: var(--volt);
+    color: var(--sage);
 }
 
 .copyright {
