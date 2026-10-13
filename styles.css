@@ -198,13 +198,217 @@ nav {
     font-size: 0.85rem;
     color: var(--ink-soft);
 }
-/*TRAINERS_CSS*/
-/*MEMBERSHIP_CSS*/
-/*FOOTER_CSS*/
+/*Trainers (Flexbox: cards wrap and share row space)*/
+.trainer-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.trainer-card {
+    flex: 1 1 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    padding: 1.75rem 1.25rem;
+    transition: box-shadow 0.15s;
+}
+
+.trainer-card:hover {
+    box-shadow: 0 8px 24px rgba(198, 244, 50, 0.1);
+}
+
+.avatar {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background: var(--volt);
+    color: var(--bg);
+    font-size: 1.5rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.trainer-card h3 {
+    font-size: 1.1rem;
+}
+
+.specialty {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--volt);
+    margin: 0.25rem 0 0.75rem;
+}
+
+.bio {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+}
+
+/*Membership (Grid: equal columns, featured card lifted)*/
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+.price-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+}
+
+.price-card.featured {
+    border-color: var(--volt);
+    box-shadow: 0 8px 32px rgba(198, 244, 50, 0.12);
+}
+
+.badge {
+    position: absolute;
+    top: -0.75rem;
+    left: 1.5rem;
+    background: var(--coral);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.75rem;
+    border-radius: 999px;
+}
+
+.price-card h3 {
+    font-size: 1.1rem;
+}
+
+.amount {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0.5rem 0 1.25rem;
+}
+
+.amount span {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--ink-soft);
+}
+
+.perks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+}
+
+.perks li::before {
+    content: "✓ ";
+    color: var(--volt);
+    font-weight: 700;
+}
+
+.price-card .btn {
+    margin-top: auto;
+    text-align: center;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--volt);
+    border: 1px solid var(--volt);
+}
+
+.btn-outline:hover {
+    background: var(--volt);
+    color: var(--bg);
+}
+/*footer*/
+footer {
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+}
+
+.footer-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 2rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2rem;
+}
+
+.footer-logo {
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.footer-logo span {
+    color: var(--volt);
+}
+
+.footer-brand p:last-child {
+    margin-top: 0.5rem;
+    max-width: 24rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+}
+
+.footer-links h3,
+.footer-contact h3 {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.footer-links ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-links a,
+.footer-contact p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+}
+
+.footer-links a:hover {
+    color: var(--volt);
+}
+
+.copyright {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 2rem;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+}
 /*responsive*/
 @media (max-width: 900px) {
     .schedule-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 28rem;
+        margin: 0 auto;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
     }
 }
 
