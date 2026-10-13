@@ -15,6 +15,7 @@
     --sage-deep: #3d5545;
     --clay: #a8745a;
     --line: #ddd8cc;
+    --font-display: Georgia, "Times New Roman", serif;
     --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -108,6 +109,22 @@ nav {
     color: var(--sage);
 }
 
+.facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2.5rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+}
+
+.facts strong {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--sage);
+    margin-right: 0.25rem;
+}
+
 .hero .subtext {
     margin-top: 1.25rem;
     max-width: 32rem;
@@ -134,6 +151,14 @@ nav {
 }
 
 /*Section shared*/
+/* Serif headings against a sans body: a calmer, editorial tone than
+   the all-caps sans that most gym sites use. */
+h1,
+h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+}
+
 .schedule,
 .trainers,
 .membership {
@@ -150,37 +175,75 @@ nav {
     margin-bottom: 1.5rem;
 }
 
-/*Schedule (Grid: one column per day)*/
+/*Schedule
+  WHY GRID: a timetable is two-dimensional (days across, early/late down).
+  Each .day is a "subgrid" that borrows the parent's rows, so a long class
+  name that wraps in one column makes the same row taller in every column.
+  Flexbox columns can't do that; each column would size itself.
+  Collapses to 3 then 1 columns because six narrow columns are unreadable
+  on a phone.*/
+.section-intro {
+    max-width: 38rem;
+    color: var(--ink-soft);
+    margin: -0.75rem 0 1.25rem;
+}
+
+.legend {
+    display: flex;
+    gap: 1.25rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+}
+
+.legend li::before {
+    content: "";
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 2px;
+    margin-right: 0.4rem;
+    vertical-align: -1px;
+    background: var(--level);
+}
+
+/* Intensity is encoded in color AND written as text on each card, so it
+   is never conveyed by color alone. Darker = harder. */
+.gentle {
+    --level: #b9c7b8;
+}
+.steady {
+    --level: #7f9b86;
+}
+.hard {
+    --level: var(--sage-deep);
+}
+
 .schedule-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 1rem;
+    column-gap: 1rem;
+    row-gap: 0.75rem;
 }
 
 .day {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
 }
 
 .day h3 {
-    font-size: 0.8rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--sage);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    font-weight: 600;
 }
 
 .class-slot {
     background: var(--surface);
     border: 1px solid var(--line);
-    border-left: 3px solid var(--sage);
-    border-radius: 0.75rem;
+    border-left: 4px solid var(--level);
+    border-radius: 0.5rem;
     padding: 0.85rem;
-    transition: transform 0.15s;
-}
-
-.class-slot:hover {
-    transform: translateY(-2px);
 }
 
 .time {
@@ -197,7 +260,9 @@ nav {
 .coach {
     font-size: 0.85rem;
     color: var(--ink-soft);
+    text-transform: capitalize;
 }
+
 /*Trainers (Flexbox: cards wrap and share row space)*/
 .trainer-list {
     display: flex;
@@ -433,7 +498,23 @@ footer {
         font-size: 2.25rem;
     }
 
-    .hero .subtext {
+    .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2.5rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+}
+
+.facts strong {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--sage);
+    margin-right: 0.25rem;
+}
+
+.hero .subtext {
         font-size: 1rem;
     }
 
