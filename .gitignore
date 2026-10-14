@@ -1,2 +1,4 @@
 .DS_Store
 DESIGN.md
+node_modules
+dist
