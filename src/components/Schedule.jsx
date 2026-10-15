@@ -14,6 +14,19 @@ export default function Schedule() {
     // recomputed from the new value.
     const [level, setLevel] = useState("all");
 
+    // The saved ids live here, in the parent, because the count below and
+    // every SaveToggle need the same source of truth. Toggling builds a NEW
+    // array (never mutates) so React sees the change.
+    const [savedIds, setSavedIds] = useState([]);
+
+    function toggleSaved(id) {
+        setSavedIds((current) =>
+            current.includes(id)
+                ? current.filter((x) => x !== id)
+                : [...current, id],
+        );
+    }
+
     const visible =
         level === "all" ? classes : classes.filter((c) => c.level === level);
 
@@ -47,6 +60,7 @@ export default function Schedule() {
                 ))}
                 <p className="ml-1 text-sm text-ink-soft" aria-live="polite">
                     {visible.length} of {classes.length} classes
+                    {savedIds.length > 0 && ` · ${savedIds.length} saved`}
                 </p>
             </div>
 
@@ -64,7 +78,12 @@ export default function Schedule() {
                                 {day}
                             </h3>
                             {slots.map((item) => (
-                                <ClassSlot key={item.id} item={item} />
+                                <ClassSlot
+                                    key={item.id}
+                                    item={item}
+                                    saved={savedIds.includes(item.id)}
+                                    onToggleSaved={() => toggleSaved(item.id)}
+                                />
                             ))}
                         </div>
                     );

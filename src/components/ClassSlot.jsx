@@ -1,3 +1,5 @@
+import SaveToggle from "./SaveToggle.jsx";
+
 // Written-out level text is shown too, so intensity is never color-only.
 const LEVEL_BORDER = {
     gentle: "border-l-level-gentle",
@@ -11,7 +13,7 @@ const PERIOD_ROW = {
     evening: "row-start-3",
 };
 
-export default function ClassSlot({ item }) {
+export default function ClassSlot({ item, saved, onToggleSaved }) {
     return (
         <article
             className={`rounded-lg border border-line border-l-4 bg-surface p-3.5 ${LEVEL_BORDER[item.level]} ${PERIOD_ROW[item.period]}`}
@@ -21,6 +23,11 @@ export default function ClassSlot({ item }) {
             <p className="text-sm text-ink-soft">
                 with {item.coach} · <span className="capitalize">{item.level}</span>
             </p>
+            <SaveToggle
+                saved={saved}
+                onToggle={onToggleSaved}
+                label={`${item.name} on ${item.day}`}
+            />
         </article>
     );
 }
