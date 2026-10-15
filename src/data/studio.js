@@ -23,10 +23,10 @@ export const classes = [
 export const levels = ["gentle", "steady", "hard"];
 
 export const trainers = [
-    { id: 1, initials: "MA", name: "Mateo Alvarez", specialty: "Strength", bio: "Ex-national powerlifter.", quote: "“Lift heavy, leave with all your joints.”" },
-    { id: 2, initials: "IL", name: "Ingrid Larsen", specialty: "Boxing and conditioning", bio: "Ran a fight camp for six years.", quote: "“Hard work is quieter than you think.”" },
-    { id: 3, initials: "KW", name: "Kenji Watanabe", specialty: "Cycling and bootcamp", bio: "Former triathlete.", quote: "“Pace yourself; the week is long.”" },
-    { id: 4, initials: "LH", name: "Leila Haddad", specialty: "Yoga and mobility", bio: "Physio-trained yoga teacher.", quote: "“Recovery is training too.”" },
+    { id: 1, initials: "MA", image: "/images/strength.jpg", imageAlt: "A coach's hands gripping a loaded barbell during a strength class", credit: "Tyler Raye", name: "Mateo Alvarez", specialty: "Strength", bio: "Ex-national powerlifter.", quote: "“Lift heavy, leave with all your joints.”" },
+    { id: 2, initials: "IL", image: "/images/boxing.jpg", imageAlt: "A boxer in white gloves hitting a heavy bag", credit: "Pete Alexopoulos", name: "Ingrid Larsen", specialty: "Boxing and conditioning", bio: "Ran a fight camp for six years.", quote: "“Hard work is quieter than you think.”" },
+    { id: 3, initials: "KW", image: "/images/cycling.jpg", imageAlt: "A row of people riding stationary bikes in a studio class", credit: "Trust Katsande", name: "Kenji Watanabe", specialty: "Cycling and bootcamp", bio: "Former triathlete.", quote: "“Pace yourself; the week is long.”" },
+    { id: 4, initials: "LH", image: "/images/yoga.jpg", imageAlt: "Two people practicing yoga poses in a bright wooden studio", credit: "Carl Barcelo", name: "Leila Haddad", specialty: "Yoga and mobility", bio: "Physio-trained yoga teacher.", quote: "“Recovery is training too.”" },
 ];
 
 export const plans = [
@@ -42,3 +42,9 @@ export const navLinks = [
     { href: "#membership", label: "Membership" },
     { href: "#contact", label: "Contact" },
 ];
+
+export const hero = {
+    image: "/images/hero.jpg",
+    imageAlt: "A woman setting up a deadlift in a strength studio",
+    credit: "Rodrigo Rodrigues",
+};
