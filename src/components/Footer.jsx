@@ -1,0 +1,45 @@
+import { navLinks } from "../data/studio.js";
+
+export default function Footer() {
+    const exploreLinks = navLinks.filter((l) =>
+        ["#schedule", "#trainers", "#membership"].includes(l.href),
+    );
+
+    return (
+        <footer id="contact" className="border-t border-line bg-surface">
+            <div className="mx-auto grid max-w-[1100px] gap-10 px-6 pt-12 pb-8 md:grid-cols-[2fr_1fr_1fr] md:gap-8">
+                <div>
+                    <p className="text-lg font-extrabold">
+                        Pulse<span className="text-sage">Fit</span>
+                    </p>
+                    <p className="mt-2 max-w-sm text-sm text-ink-soft">
+                        Small-group classes and coaches who care.
+                    </p>
+                </div>
+                <div>
+                    <h3 className="mb-3 text-sm font-semibold">Explore</h3>
+                    <ul className="flex flex-col gap-2 text-sm text-ink-soft">
+                        {exploreLinks.map((link) => (
+                            <li key={link.href}>
+                                <a href={link.href} className="hover:text-sage">
+                                    {link.label}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div>
+                    <h3 className="mb-3 text-sm font-semibold">Visit us</h3>
+                    <div className="space-y-1 text-sm text-ink-soft">
+                        <p>hello@pulsefit.example</p>
+                        <p>45 Muscle Lane, Lagos</p>
+                        <p>Mon–Fri 6am–9pm · Sat 8am–1pm</p>
+                    </div>
+                </div>
+            </div>
+            <p className="mx-auto max-w-[1100px] px-6 pt-4 pb-8 text-xs text-ink-soft">
+                &copy; 2026 PulseFit. Built as a learning project.
+            </p>
+        </footer>
+    );
+}
