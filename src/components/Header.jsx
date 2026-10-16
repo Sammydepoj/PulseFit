@@ -3,7 +3,7 @@ import { navLinks } from "../data/studio.js";
 // Mobile-first: logo stacked above links; from sm: they share one row.
 export default function Header() {
     return (
-        <header className="sticky top-0 z-10 border-b border-line bg-bg">
+        <header className="sticky top-0 z-10 border-b border-line bg-bg/85 backdrop-blur">
             <nav className="mx-auto flex max-w-[1100px] flex-col items-center gap-3 p-4 sm:flex-row sm:justify-between sm:px-6">
                 <a href="#hero" className="font-extrabold text-xl">
                     Pulse<span className="text-sage">Fit</span>
@@ -13,7 +13,7 @@ export default function Header() {
                         <li key={link.href}>
                             <a
                                 href={link.href}
-                                className="text-sm text-ink-soft transition-colors hover:text-sage"
+                                className="relative text-sm text-ink-soft transition-colors hover:text-sage after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-sage after:transition-transform hover:after:scale-x-100"
                             >
                                 {link.label}
                             </a>
