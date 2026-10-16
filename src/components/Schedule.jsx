@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { DAYS, classes, levels } from "../data/studio.js";
+import SectionHeading from "./SectionHeading.jsx";
 import ClassSlot from "./ClassSlot.jsx";
 
 const FILTERS = ["all", ...levels];
@@ -35,12 +36,12 @@ export default function Schedule() {
             id="schedule"
             className="mx-auto max-w-[1100px] border-t border-line px-6 py-12"
         >
-            <h2 className="mb-4 text-3xl">The week at a glance</h2>
-            <p className="mb-5 max-w-xl text-ink-soft">
-                Two sessions a day, early or after work. The left edge of each
-                card shows how hard it is, so you can plan a week that has some
-                recovery in it.
-            </p>
+            <SectionHeading
+                number="01"
+                label="Schedule"
+                title="The week at a glance"
+                intro="Two sessions a day, early or after work. The left edge of each card shows how hard it is, so you can plan a week that has some recovery in it."
+            />
 
             <div className="mb-6 flex flex-wrap items-center gap-2">
                 {FILTERS.map((f) => (

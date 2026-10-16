@@ -1,4 +1,5 @@
 import { trainers } from "../data/studio.js";
+import SectionHeading from "./SectionHeading.jsx";
 import TrainerCard from "./TrainerCard.jsx";
 
 /* WHY FLEXBOX: a one-dimensional list whose length will change as coaches
@@ -11,11 +12,12 @@ export default function Trainers() {
             id="trainers"
             className="mx-auto max-w-[1100px] border-t border-line px-6 py-12"
         >
-            <h2 className="mb-4 text-3xl">Four coaches, one philosophy</h2>
-            <p className="mb-6 max-w-xl text-ink-soft">
-                Each coach has a quote on their card because it is the first
-                thing they say in class.
-            </p>
+            <SectionHeading
+                number="02"
+                label="Coaches"
+                title="Four coaches, one philosophy"
+                intro="Each coach has a quote on their card because it is the first thing they say in class."
+            />
             <div className="flex flex-wrap gap-6">
                 {trainers.map((t) => (
                     <TrainerCard key={t.id} trainer={t} />
