@@ -13,6 +13,10 @@
     --color-line: #ddd8cc;
     --color-level-gentle: #b9c7b8;
     --color-level-steady: #7f9b86;
+    --color-featured: #3d5545;
+    --color-on-featured: #f4f4f4;
+    --color-footer: #2a2d28;
+    --color-on-footer: #f4f4f4;
     --font-display: Georgia, "Times New Roman", serif;
     --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
 
@@ -55,6 +59,30 @@
     }
 }
 
+/* Dark mode: the whole site reads colors from the tokens above, so dark
+   mode only has to redefine them under .dark (set on <html> by
+   ThemeToggle). No component needs dark: classes for color. In dark,
+   "harder" classes are the brightest, so intensity still reads clearly. */
+.dark {
+    color-scheme: dark;
+    --color-bg: #121512;
+    --color-surface: #1b1f1b;
+    --color-ink: #ecebe5;
+    --color-ink-soft: #a3a89e;
+    --color-sage: #8fb09a;
+    --color-sage-deep: #b4d0be;
+    --color-clay: #d29a7e;
+    --color-line: #2c322c;
+    --color-level-gentle: #3f4d42;
+    --color-level-steady: #6b8c75;
+    --color-featured: #2b4234;
+    --color-on-featured: #ecebe5;
+    --color-footer: #0b0d0b;
+    --color-on-footer: #ecebe5;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
     html {
         scroll-behavior: smooth;
@@ -62,7 +90,7 @@
     }
 
     body {
-        @apply bg-bg font-body text-ink;
+        @apply bg-bg font-body text-ink transition-colors duration-300;
     }
 
     h1,
