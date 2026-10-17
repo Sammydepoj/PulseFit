@@ -1,5 +1,3 @@
-// One heading block reused by every section so they all share spacing,
-// the small numbered label and the intro paragraph style.
 export default function SectionHeading({ number, label, title, intro }) {
     return (
         <div className="reveal mb-8 max-w-xl">

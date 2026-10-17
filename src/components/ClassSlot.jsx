@@ -1,13 +1,11 @@
 import SaveToggle from "./SaveToggle.jsx";
 
-// Written-out level text is shown too, so intensity is never color-only.
 const LEVEL_BORDER = {
     gentle: "border-l-level-gentle",
     steady: "border-l-level-steady",
     hard: "border-l-sage-deep",
 };
 
-// morning sits in grid row 2, evening in row 3 (row 1 is the day name)
 const PERIOD_ROW = {
     morning: "row-start-2",
     evening: "row-start-3",

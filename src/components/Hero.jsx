@@ -65,7 +65,7 @@ export default function Hero() {
                         alt={hero.imageAlt}
                         width="1000"
                         height="1500"
-                        className="aspect-[4/3] w-full rounded-3xl object-cover object-[50%_70%] shadow-xl lg:aspect-[4/5] lg:object-[50%_35%]"
+                        className="aspect-[4/3] w-full rounded-3xl object-cover dark:brightness-90 object-[50%_70%] shadow-xl lg:aspect-[4/5] lg:object-[50%_35%]"
                     />
                     <div className="motion-safe:animate-float absolute bottom-4 left-4 right-4 rounded-2xl bg-bg/90 p-4 shadow-lg backdrop-blur sm:right-auto sm:w-64">
                         <p className="text-xs uppercase tracking-widest text-sage">

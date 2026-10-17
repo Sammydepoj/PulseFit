@@ -1,11 +1,6 @@
 import { plans } from "../data/studio.js";
 import SectionHeading from "./SectionHeading.jsx";
 import PriceCard from "./PriceCard.jsx";
-
-/* WHY GRID: tiers are only comparable if they are the same width and their
-   rows line up. One column on phones (same order), three equal columns from
-   lg. The featured tier is marked by border and badge, not scaled up, so it
-   never breaks the alignment. */
 export default function Membership() {
     return (
         <section

@@ -1,8 +1,3 @@
-// A CONTROLLED component: it holds no state of its own.
-//   - `saved` (prop)    -> what it shows
-//   - `onToggle` (prop) -> what it calls when clicked
-// The parent decides what "saved" means and passes the answer back down,
-// so the same button can be reused on every class card.
 export default function SaveToggle({ saved, onToggle, label }) {
     return (
         <button

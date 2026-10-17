@@ -1,6 +1,3 @@
-// Photo on top (a shot of the class they teach), the coach's initials badge
-// overlapping the photo edge, then text. `group` lets the photo react when
-// the whole card is hovered.
 export default function TrainerCard({ trainer }) {
     return (
         <article className="reveal group flex flex-[1_1_220px] flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
@@ -11,7 +8,7 @@ export default function TrainerCard({ trainer }) {
                     loading="lazy"
                     width="900"
                     height="600"
-                    className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="size-full object-cover dark:brightness-90 transition-transform duration-700 group-hover:scale-105"
                 />
                 <span className="absolute top-3 left-3 rounded-full bg-bg/90 px-3 py-1 text-[0.7rem] uppercase tracking-wider text-sage backdrop-blur">
                     {trainer.specialty}
