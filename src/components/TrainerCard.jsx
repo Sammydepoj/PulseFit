@@ -3,7 +3,7 @@
 // the whole card is hovered.
 export default function TrainerCard({ trainer }) {
     return (
-        <article className="group flex flex-[1_1_220px] flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <article className="reveal group flex flex-[1_1_220px] flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
             <div className="relative aspect-[16/10] overflow-hidden sm:aspect-[4/3]">
                 <img
                     src={trainer.image}

@@ -4,7 +4,7 @@ export default function PriceCard({ plan }) {
     const f = plan.featured;
     return (
         <article
-            className={`relative flex flex-col rounded-2xl border px-6 py-8 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
+            className={`reveal relative flex flex-col rounded-2xl border px-6 py-8 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
                 f
                     ? "border-sage-deep bg-sage-deep text-bg shadow-lg"
                     : "border-line bg-surface"

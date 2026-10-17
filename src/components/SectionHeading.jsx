@@ -2,7 +2,7 @@
 // the small numbered label and the intro paragraph style.
 export default function SectionHeading({ number, label, title, intro }) {
     return (
-        <div className="mb-8 max-w-xl">
+        <div className="reveal mb-8 max-w-xl">
             <p className="mb-3 flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-sage">
                 <span className="font-display text-base normal-case tracking-normal">
                     {number}
