@@ -1,24 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DAYS, classes, levels } from "../data/studio.js";
 import SectionHeading from "./SectionHeading.jsx";
 import ClassSlot from "./ClassSlot.jsx";
 
 const FILTERS = ["all", ...levels];
+const STORAGE_KEY = "pulsefit-saved-classes";
 
-/* WHY GRID: a timetable is two-dimensional (days across, morning/evening
-   down). Each day is a subgrid that borrows the parent's rows, so a class
-   name that wraps in one column makes that row taller in every column.
-   Columns: 1 on phones, 3 from sm, 6 from lg. */
+function loadSavedIds() {
+    try {
+        const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (!Array.isArray(stored)) return [];
+        return stored.filter((id) => classes.some((c) => c.id === id));
+    } catch {
+        return [];
+    }
+}
+
 export default function Schedule() {
-    // `level` is the one piece of state the filter owns. Clicking a button
-    // calls setLevel, React re-runs this function, and `visible` is
-    // recomputed from the new value.
     const [level, setLevel] = useState("all");
+    const [savedIds, setSavedIds] = useState(loadSavedIds);
 
-    // The saved ids live here, in the parent, because the count below and
-    // every SaveToggle need the same source of truth. Toggling builds a NEW
-    // array (never mutates) so React sees the change.
-    const [savedIds, setSavedIds] = useState([]);
+    useEffect(() => {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(savedIds));
+        } catch {}
+    }, [savedIds]);
 
     function toggleSaved(id) {
         setSavedIds((current) =>
