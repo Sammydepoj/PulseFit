@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-/* Our own design tokens. Tailwind turns each --color-* into utilities
-   (bg-bg, text-sage, border-line ...) and --font-* into font-display etc. */
 @theme {
     --color-bg: #f4f4f4;
     --color-surface: #fbf9f5;
@@ -59,10 +57,6 @@
     }
 }
 
-/* Dark mode: the whole site reads colors from the tokens above, so dark
-   mode only has to redefine them under .dark (set on <html> by
-   ThemeToggle). No component needs dark: classes for color. In dark,
-   "harder" classes are the brightest, so intensity still reads clearly. */
 .dark {
     color-scheme: dark;
     --color-bg: #121512;
@@ -99,10 +93,6 @@
     }
 }
 
-/* Scroll reveal with no JavaScript: each .reveal element fades up as it
-   scrolls into view, driven by its own position in the viewport
-   (animation-timeline: view()). Browsers without support skip the rule, so
-   the content is simply visible. Reduced-motion users get no animation. */
 @keyframes reveal {
     from {
         opacity: 0;

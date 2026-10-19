@@ -8,14 +8,9 @@ const facts = [
 
 const nextClass = classes[0];
 
-// Mobile: text, then photo. From lg: two columns, text left and a tall
-// photo right.
 export default function Hero() {
     return (
-        <section
-            id="hero"
-            className="bg-gradient-to-b from-surface to-bg"
-        >
+        <section id="hero" className="bg-gradient-to-b from-surface to-bg">
             <div className="mx-auto grid max-w-[1100px] items-center gap-10 px-6 pt-12 pb-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:pt-20 lg:pb-20">
                 <div>
                     <p className="mb-4 text-xs uppercase tracking-[0.2em] text-sage motion-safe:animate-fade-up [animation-delay:0ms]">
@@ -49,7 +44,10 @@ export default function Hero() {
                     </div>
                     <ul className="mt-10 motion-safe:animate-fade-up [animation-delay:460ms] flex flex-wrap gap-x-10 gap-y-4 border-t border-line pt-6 text-sm text-ink-soft">
                         {facts.map((fact) => (
-                            <li key={fact.label} className="flex items-baseline gap-2">
+                            <li
+                                key={fact.label}
+                                className="flex items-baseline gap-2"
+                            >
                                 <strong className="font-display text-4xl font-semibold text-sage">
                                     {fact.value}
                                 </strong>
@@ -75,7 +73,8 @@ export default function Hero() {
                             {nextClass.name}
                         </p>
                         <p className="text-sm text-ink-soft">
-                            {nextClass.day} {nextClass.time} · with {nextClass.coach}
+                            {nextClass.day} {nextClass.time} · with{" "}
+                            {nextClass.coach}
                         </p>
                     </div>
                 </div>
