@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { authClient } from "../lib/auth-client.js";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const inputClass =
     "mt-1 w-full rounded-lg border border-line bg-bg px-3 py-2 text-ink focus:border-sage focus:outline-none";
 
 export default function AuthDialog({ open, onClose }) {
+    const { login, signup } = useAuth();
     const dialogRef = useRef(null);
     const [mode, setMode] = useState("signin");
     const [error, setError] = useState("");
@@ -29,19 +30,18 @@ export default function AuthDialog({ open, onClose }) {
         setError("");
         const email = form.get("email");
         const password = form.get("password");
-        const { error: authError } =
-            mode === "signup"
-                ? await authClient.signUp.email({
-                      name: form.get("name"),
-                      email,
-                      password,
-                  })
-                : await authClient.signIn.email({ email, password });
-        setBusy(false);
-        if (authError) {
-            setError(authError.message || "Something went wrong. Try again.");
+        try {
+            if (mode === "signup") {
+                await signup(form.get("name"), email, password);
+            } else {
+                await login(email, password);
+            }
+        } catch (err) {
+            setError(err.message);
+            setBusy(false);
             return;
         }
+        setBusy(false);
         formEl.reset();
         onClose();
     }

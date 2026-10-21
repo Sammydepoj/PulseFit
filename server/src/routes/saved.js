@@ -1,18 +1,8 @@
 import { Router } from "express";
-import { fromNodeHeaders } from "better-auth/node";
-import { auth } from "../auth.js";
 import { pool } from "../db.js";
+import { requireUser } from "../session.js";
 
 export const savedRouter = Router();
-
-async function requireUser(req, res, next) {
-    const session = await auth.api.getSession({
-        headers: fromNodeHeaders(req.headers),
-    });
-    if (!session) return res.status(401).json({ error: "Sign in first" });
-    req.user = session.user;
-    next();
-}
 
 savedRouter.use(requireUser);
 
