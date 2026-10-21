@@ -1,7 +1,9 @@
-import { plans } from "../data/studio.js";
+import { useStudio } from "../context/StudioContext.jsx";
+import SectionStatus from "./SectionStatus.jsx";
 import SectionHeading from "./SectionHeading.jsx";
 import PriceCard from "./PriceCard.jsx";
 export default function Membership() {
+    const { status, plans } = useStudio();
     return (
         <section
             id="membership"
@@ -13,11 +15,15 @@ export default function Membership() {
                 title="Pay for the habit you have"
                 intro="Most members train two to three times a week, so the middle plan is priced to be the obvious choice."
             />
-            <div className="mx-auto grid max-w-md grid-cols-1 items-stretch gap-6 lg:max-w-none lg:grid-cols-3">
-                {plans.map((p) => (
-                    <PriceCard key={p.id} plan={p} />
-                ))}
-            </div>
+            {status !== "ready" ? (
+                <SectionStatus />
+            ) : (
+                <div className="mx-auto grid max-w-md grid-cols-1 items-stretch gap-6 lg:max-w-none lg:grid-cols-3">
+                    {plans.map((p) => (
+                        <PriceCard key={p.id} plan={p} />
+                    ))}
+                </div>
+            )}
         </section>
     );
 }
