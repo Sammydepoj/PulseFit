@@ -1,8 +1,11 @@
-import { navLinks, trainers, hero } from "../data/studio.js";
-
-const credits = [...new Set([hero.credit, ...trainers.map((t) => t.credit)])];
+import { navLinks, hero } from "../data/studio.js";
+import { useStudio } from "../context/StudioContext.jsx";
 
 export default function Footer() {
+    const { coaches } = useStudio();
+    const credits = [
+        ...new Set([hero.credit, ...coaches.map((t) => t.credit)]),
+    ];
     const exploreLinks = navLinks.filter((l) =>
         ["#schedule", "#trainers", "#membership"].includes(l.href),
     );

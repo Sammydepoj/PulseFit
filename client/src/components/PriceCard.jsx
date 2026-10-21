@@ -15,7 +15,7 @@ export default function PriceCard({ plan }) {
             )}
             <h3 className="text-lg font-semibold">{plan.name}</h3>
             <p className="mt-2 font-display text-5xl font-semibold">
-                {plan.price}
+                {`$${plan.priceCents / 100}`}
                 <span
                     className={`font-body text-sm font-normal ${f ? "text-on-featured/70" : "text-ink-soft"}`}
                 >

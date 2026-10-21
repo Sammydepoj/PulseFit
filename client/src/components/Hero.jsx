@@ -1,4 +1,5 @@
-import { classes, hero } from "../data/studio.js";
+import { hero } from "../data/studio.js";
+import { useStudio } from "../context/StudioContext.jsx";
 
 const facts = [
     { value: "12", label: "people per class, max" },
@@ -6,9 +7,8 @@ const facts = [
     { value: "0", label: "mirrors on the floor" },
 ];
 
-const nextClass = classes[0];
-
 export default function Hero() {
+    const nextClass = useStudio().classes[0];
     return (
         <section id="hero" className="bg-gradient-to-b from-surface to-bg">
             <div className="mx-auto grid max-w-[1100px] items-center gap-10 px-6 pt-12 pb-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:pt-20 lg:pb-20">
@@ -65,18 +65,20 @@ export default function Hero() {
                         height="1500"
                         className="aspect-[4/3] w-full rounded-3xl object-cover dark:brightness-90 object-[50%_70%] shadow-xl lg:aspect-[4/5] lg:object-[50%_35%]"
                     />
-                    <div className="motion-safe:animate-float absolute bottom-4 left-4 right-4 rounded-2xl bg-bg/90 p-4 shadow-lg backdrop-blur sm:right-auto sm:w-64">
-                        <p className="text-xs uppercase tracking-widest text-sage">
-                            Next up
-                        </p>
-                        <p className="mt-1 font-display text-lg font-semibold">
-                            {nextClass.name}
-                        </p>
-                        <p className="text-sm text-ink-soft">
-                            {nextClass.day} {nextClass.time} · with{" "}
-                            {nextClass.coach}
-                        </p>
-                    </div>
+                    {nextClass && (
+                        <div className="motion-safe:animate-float absolute bottom-4 left-4 right-4 rounded-2xl bg-bg/90 p-4 shadow-lg backdrop-blur sm:right-auto sm:w-64">
+                            <p className="text-xs uppercase tracking-widest text-sage">
+                                Next up
+                            </p>
+                            <p className="mt-1 font-display text-lg font-semibold">
+                                {nextClass.name}
+                            </p>
+                            <p className="text-sm text-ink-soft">
+                                {nextClass.day} {nextClass.time} · with{" "}
+                                {nextClass.coach}
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
         </section>
