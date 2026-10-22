@@ -4,6 +4,7 @@ import { pool } from "./db.js";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./auth.js";
 import { studioRouter } from "./routes/studio.js";
+import { savedRouter } from "./routes/saved.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.get("/api/health", async (_req, res) => {
     res.json({ ok: true });
 });
 
+app.use("/api/saved", savedRouter);
 app.use("/api", studioRouter);
 
 app.use("/api", (_req, res) => res.status(404).json({ error: "Not found" }));
