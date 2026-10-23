@@ -5,7 +5,7 @@ if (!process.env.DATABASE_URL) {
     throw new Error("DATABASE_URL is not set. Copy .env.example to .env.");
 }
 
-// Hosted Postgres (Neon, Railway) requires TLS; local Postgres does not.
+// Hosted Postgres (Neon, Render) requires TLS; local Postgres does not.
 const { hostname } = new URL(process.env.DATABASE_URL);
 const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
 
