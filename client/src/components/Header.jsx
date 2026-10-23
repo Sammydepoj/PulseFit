@@ -1,8 +1,14 @@
+import { useState } from "react";
 import { navLinks } from "../data/studio.js";
+import { authClient } from "../lib/auth-client.js";
 import ThemeToggle from "./ThemeToggle.jsx";
+import AuthDialog from "./AuthDialog.jsx";
 
 // Mobile-first: logo stacked above links; from sm: they share one row.
 export default function Header() {
+    const { data: session, isPending } = authClient.useSession();
+    const [authOpen, setAuthOpen] = useState(false);
+
     return (
         <header className="sticky top-0 z-10 border-b border-line bg-bg/85 backdrop-blur">
             <nav className="mx-auto flex max-w-[1100px] flex-col items-center gap-3 p-4 sm:flex-row sm:justify-between sm:px-6">
@@ -23,8 +29,32 @@ export default function Header() {
                         ))}
                     </ul>
                     <ThemeToggle />
+                    {!isPending &&
+                        (session ? (
+                            <div className="flex items-center gap-3 text-sm">
+                                <span className="text-ink-soft">
+                                    Hi, {session.user.name.split(" ")[0]}
+                                </span>
+                                <button
+                                    type="button"
+                                    onClick={() => authClient.signOut()}
+                                    className="rounded-full border border-line px-4 py-1.5 text-ink-soft transition-colors hover:border-sage hover:text-sage"
+                                >
+                                    Sign out
+                                </button>
+                            </div>
+                        ) : (
+                            <button
+                                type="button"
+                                onClick={() => setAuthOpen(true)}
+                                className="rounded-full border border-sage bg-sage px-4 py-1.5 text-sm font-semibold text-bg transition hover:opacity-90"
+                            >
+                                Sign in
+                            </button>
+                        ))}
                 </div>
             </nav>
+            <AuthDialog open={authOpen} onClose={() => setAuthOpen(false)} />
         </header>
     );
 }
