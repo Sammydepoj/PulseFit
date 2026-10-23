@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../lib/api.js";
-import { authClient } from "../lib/auth-client.js";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const STORAGE_KEY = "pulsefit-saved-classes";
 
@@ -23,12 +23,12 @@ function writeLocal(ids) {
 // Signed in: saved classes live in the database. Signed out: in localStorage.
 // On sign-in, anything the guest saved is merged into their account.
 export function useSavedClasses(classes, classesReady) {
-    const { data: session, isPending } = authClient.useSession();
-    const userId = session?.user.id ?? null;
+    const { user, loading } = useAuth();
+    const userId = user?.id ?? null;
     const [savedIds, setSavedIds] = useState([]);
 
     useEffect(() => {
-        if (!classesReady || isPending) return;
+        if (!classesReady || loading) return;
         const local = readLocal(classes);
         if (!userId) {
             setSavedIds(local);
@@ -53,7 +53,7 @@ export function useSavedClasses(classes, classesReady) {
         return () => {
             cancelled = true;
         };
-    }, [userId, isPending, classesReady, classes]);
+    }, [userId, loading, classesReady, classes]);
 
     function toggleSaved(id) {
         const wasSaved = savedIds.includes(id);

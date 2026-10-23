@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { navLinks } from "../data/studio.js";
-import { authClient } from "../lib/auth-client.js";
+import { useAuth } from "../context/AuthContext.jsx";
 import ThemeToggle from "./ThemeToggle.jsx";
 import AuthDialog from "./AuthDialog.jsx";
 
 // Mobile-first: logo stacked above links; from sm: they share one row.
 export default function Header() {
-    const { data: session, isPending } = authClient.useSession();
+    const { user, loading, logout } = useAuth();
     const [authOpen, setAuthOpen] = useState(false);
 
     return (
@@ -29,15 +29,15 @@ export default function Header() {
                         ))}
                     </ul>
                     <ThemeToggle />
-                    {!isPending &&
-                        (session ? (
+                    {!loading &&
+                        (user ? (
                             <div className="flex items-center gap-3 text-sm">
                                 <span className="text-ink-soft">
-                                    Hi, {session.user.name.split(" ")[0]}
+                                    Hi, {user.name.split(" ")[0]}
                                 </span>
                                 <button
                                     type="button"
-                                    onClick={() => authClient.signOut()}
+                                    onClick={logout}
                                     className="rounded-full border border-line px-4 py-1.5 text-ink-soft transition-colors hover:border-sage hover:text-sage"
                                 >
                                     Sign out
