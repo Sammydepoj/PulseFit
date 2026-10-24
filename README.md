@@ -5,7 +5,7 @@ end, deployed separately.
 
 ```
 client/   Vite + React + Tailwind        -> deploy to Vercel
-server/   Express + pg (hand-written auth) -> deploy to Railway
+server/   Express + pg (hand-written auth) -> deploy to Render
 ```
 
 ## Run it locally
@@ -84,22 +84,26 @@ are merged into the account when the visitor signs in.
 ## Deploy
 
 The browser only ever talks to the Vercel domain. Vercel forwards `/api/*` to
-Railway (`client/vercel.json`), so the session cookie is first-party and works
+Render (`client/vercel.json`), so the session cookie is first-party and works
 in Safari and with third-party cookies blocked.
 
 1. **Database (Neon).** Create a project and copy the connection string.
-2. **Server (Railway).** New project from this repo, set the root directory to
-   `server`. Variables:
+2. **Server (Render).** New -> Blueprint and pick this repo (it reads
+   `render.yaml`), or New -> Web Service with root directory `server`, build
+   command `npm install`, start command `npm run migrate && npm start` and
+   health check path `/api/health`. Environment variables:
    - `DATABASE_URL`: the Neon string
    - `CLIENT_URL`: the Vercel URL (set after step 3)
 
-   Railway runs `npm run migrate && npm start` (see `server/railway.json`).
-   Seed once from your machine with the Neon string:
-   `DATABASE_URL="..." npm run seed` (inside `server/`).
+   Render provides `PORT` itself. Seed once from your machine with the Neon
+   string: `DATABASE_URL="..." npm run seed` (inside `server/`).
+   On the free plan Render puts the service to sleep after about 15 minutes
+   without traffic, so the first request after a pause can take up to a
+   minute. A paid instance stays awake.
 3. **Client (Vercel).** Import the repo, set the root directory to `client`.
-   In `client/vercel.json`, replace `YOUR-RAILWAY-APP.up.railway.app` with your
-   Railway domain and redeploy.
-4. Set `CLIENT_URL` on Railway to the Vercel URL and redeploy the server.
+   In `client/vercel.json`, replace `YOUR-RENDER-SERVICE.onrender.com` with your
+   Render domain (shown at the top of the service page) and redeploy.
+4. Set `CLIENT_URL` on Render to the Vercel URL (saving redeploys the server).
    The server refuses POSTs from any other origin, and uses the `https` in this
    URL to mark the session cookie `Secure`.
 
