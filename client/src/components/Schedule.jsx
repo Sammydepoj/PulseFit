@@ -1,50 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DAYS, levels } from "../data/studio.js";
 import { useStudio } from "../context/StudioContext.jsx";
+import { useSavedClasses } from "../hooks/useSavedClasses.js";
 import SectionStatus from "./SectionStatus.jsx";
 import SectionHeading from "./SectionHeading.jsx";
 import ClassSlot from "./ClassSlot.jsx";
 
 const FILTERS = ["all", ...levels];
-const STORAGE_KEY = "pulsefit-saved-classes";
-
-function loadSavedIds(classes) {
-    try {
-        const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
-        if (!Array.isArray(stored)) return [];
-        return stored.filter((id) => classes.some((c) => c.id === id));
-    } catch {
-        return [];
-    }
-}
-
 export default function Schedule() {
     const { status, classes } = useStudio();
     const [level, setLevel] = useState("all");
-    const [savedIds, setSavedIds] = useState([]);
-    const [restored, setRestored] = useState(false);
-
-    // Saved ids are validated against the classes the API returned, so wait for them.
-    useEffect(() => {
-        if (status !== "ready") return;
-        setSavedIds(loadSavedIds(classes));
-        setRestored(true);
-    }, [status, classes]);
-
-    useEffect(() => {
-        if (!restored) return;
-        try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(savedIds));
-        } catch {}
-    }, [savedIds, restored]);
-
-    function toggleSaved(id) {
-        setSavedIds((current) =>
-            current.includes(id)
-                ? current.filter((x) => x !== id)
-                : [...current, id],
-        );
-    }
+    const { savedIds, toggleSaved, signedIn } = useSavedClasses(
+        classes,
+        status === "ready",
+    );
 
     const visible =
         level === "all" ? classes : classes.filter((c) => c.level === level);
