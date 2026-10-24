@@ -1,0 +1,19 @@
+# Render Blueprint for the API. Create it with New -> Blueprint, or set the same
+# values by hand under New -> Web Service.
+services:
+  - type: web
+    name: pulsefit-api
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install
+    startCommand: npm run migrate && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      # Secrets and per-environment values: Render asks for these on first deploy.
+      - key: DATABASE_URL
+        sync: false
+      - key: CLIENT_URL
+        sync: false

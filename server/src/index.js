@@ -8,7 +8,7 @@ import { savedRouter } from "./routes/saved.js";
 
 const app = express();
 
-// Railway/Render sit behind a proxy that terminates TLS.
+// Render sits behind a proxy that terminates TLS.
 app.set("trust proxy", 1);
 
 app.use(express.json());
