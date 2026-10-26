@@ -4,8 +4,13 @@ import Stripe from "stripe";
 const key = process.env.STRIPE_SECRET_KEY;
 
 if (!key) {
-    console.warn("STRIPE_SECRET_KEY is not set: checkout is disabled until it is.");
-} else if (!key.startsWith("sk_test_") && process.env.NODE_ENV !== "production") {
+    console.warn(
+        "STRIPE_SECRET_KEY is not set: checkout is disabled until it is.",
+    );
+} else if (
+    !key.startsWith("sk_test_") &&
+    process.env.NODE_ENV !== "production"
+) {
     // Stops a live key being used by accident while developing.
     throw new Error("STRIPE_SECRET_KEY is not a test key (sk_test_...).");
 }
