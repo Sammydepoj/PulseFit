@@ -6,11 +6,16 @@ import { authRouter } from "./routes/auth.js";
 import { studioRouter } from "./routes/studio.js";
 import { savedRouter } from "./routes/saved.js";
 import { checkoutRouter } from "./routes/checkout.js";
+import { stripeWebhook } from "./routes/webhook.js";
 
 const app = express();
 
 // Render sits behind a proxy that terminates TLS.
 app.set("trust proxy", 1);
+
+// Stripe signs the exact bytes it sends, so this route reads the raw body and
+// must be registered before express.json().
+app.post("/api/stripe/webhook", express.raw({ type: "application/json" }), stripeWebhook);
 
 app.use(express.json());
 
