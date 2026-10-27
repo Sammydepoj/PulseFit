@@ -6,6 +6,7 @@ import { authRouter } from "./routes/auth.js";
 import { studioRouter } from "./routes/studio.js";
 import { savedRouter } from "./routes/saved.js";
 import { checkoutRouter } from "./routes/checkout.js";
+import { ordersRouter } from "./routes/orders.js";
 import { stripeWebhook } from "./routes/webhook.js";
 
 const app = express();
@@ -43,6 +44,7 @@ app.get("/api/health", async (_req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/saved", savedRouter);
 app.use("/api/checkout", checkoutRouter);
+app.use("/api/orders", ordersRouter);
 app.use("/api", studioRouter);
 
 app.use("/api", (_req, res) => res.status(404).json({ error: "Not found" }));
