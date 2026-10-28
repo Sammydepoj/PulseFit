@@ -8,6 +8,7 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [dialogOpen, setDialogOpen] = useState(false);
 
     useEffect(() => {
         api("/auth/me")
@@ -41,7 +42,18 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, loading, signup, login, logout }}>
+        <AuthContext.Provider
+            value={{
+                user,
+                loading,
+                signup,
+                login,
+                logout,
+                dialogOpen,
+                openAuthDialog: () => setDialogOpen(true),
+                closeAuthDialog: () => setDialogOpen(false),
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );

@@ -1,5 +1,8 @@
+import { useCheckout } from "../hooks/useCheckout.js";
+
 export default function PriceCard({ plan }) {
     const f = plan.featured;
+    const { buy, busy, error } = useCheckout();
     return (
         <article
             className={`reveal relative flex flex-col rounded-2xl border px-6 py-8 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
@@ -41,16 +44,23 @@ export default function PriceCard({ plan }) {
                     </li>
                 ))}
             </ul>
-            <a
-                href="#contact"
-                className={`mt-auto rounded-full border px-7 py-3.5 text-center font-bold transition ${
+            <button
+                type="button"
+                disabled={busy}
+                onClick={() => buy(plan.id)}
+                className={`mt-auto rounded-full border px-7 py-3.5 text-center disabled:opacity-60 font-bold transition ${
                     f
                         ? "border-on-featured bg-on-featured text-featured hover:opacity-90"
                         : "border-sage text-sage hover:bg-sage hover:text-bg"
                 }`}
             >
-                {plan.cta}
-            </a>
+                {busy ? "Opening checkout…" : plan.cta}
+            </button>
+            {error && (
+                <p role="alert" className="mt-3 text-center text-sm text-clay">
+                    {error}
+                </p>
+            )}
         </article>
     );
 }
