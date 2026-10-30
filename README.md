@@ -40,6 +40,13 @@ npm run dev                 # http://localhost:5173, /api is proxied to :4000
   hash, never as text. Email is unique and always lower-case.
 - **sessions**: one row per signed-in browser. The cookie holds a random token;
   only its SHA-256 hash is stored, so a leaked database can't be used to sign in.
+- **orders**: one row per purchase attempt, owned by one user. `status` starts
+  as `pending` and only Stripe's webhook can change it to `paid` (or `expired`
+  if the checkout times out). It also stores the total, the Stripe session id
+  and, once paid, the payment id and time.
+- **order_items**: what an order contains. It copies the plan's name and price
+  at the time of purchase, so changing a plan's price later never alters past
+  orders. One order has one or more items.
 - **saved_classes**: which user saved which class. Many users can save many
   classes, so it is a join table keyed on `(user_id, class_id)`. Deleting a
   user or a class removes its saved rows.
@@ -58,6 +65,9 @@ The full schema is `server/src/schema.sql`.
 | `POST /api/auth/login` `{ email, password }` | no | signs in |
 | `POST /api/auth/logout` | no | ends the session |
 | `GET /api/auth/me` | no | `{ user }`, or `{ user: null }` when signed out |
+| `POST /api/checkout` `{ planId }` | yes | creates a pending order and returns `{ url }`, Stripe's checkout page |
+| `GET /api/orders/:id` | yes | one of your own orders with its items (404 for anyone else's) |
+| `POST /api/stripe/webhook` | Stripe signature | marks the order paid; called by Stripe only |
 | `GET /api/saved` | yes | ids of the user's saved classes |
 | `POST /api/saved` `{ classIds }` | yes | merge several saves |
 | `PUT /api/saved/:classId`, `DELETE /api/saved/:classId` | yes | save / unsave one |
@@ -80,6 +90,40 @@ refused; 10 failed logins per email in 15 minutes locks that email out briefly
 
 Signed-out visitors can still save classes; they live in `localStorage` and
 are merged into the account when the visitor signs in.
+
+## Payments (Stripe, test mode)
+
+The "buy" buttons on the membership cards start a Stripe Checkout payment.
+
+1. The browser sends only `{ planId }` to `POST /api/checkout`. The server
+   looks the price up in `plans` (it never trusts a price from the browser),
+   saves a `pending` order with its items, and creates a Stripe Checkout
+   Session for exactly that amount.
+2. The browser is sent to Stripe's hosted page and pays.
+3. Stripe calls `POST /api/stripe/webhook`. The server verifies Stripe's
+   signature, checks the order, session and amount match, and only then sets
+   the order to `paid`. Nothing else in the app can do that.
+4. Stripe sends the browser to `/checkout/success?order=<id>`. That page asks
+   `GET /api/orders/:id` for the status and checks every 2 seconds, up to 8
+   times, because the webhook can arrive just after the redirect.
+
+Set up locally:
+
+```
+# 1. Stripe dashboard (Test mode on): Developers -> API keys -> secret key
+#    Put it in server/.env as STRIPE_SECRET_KEY=sk_test_...
+
+# 2. Forward Stripe's events to your server (needs the Stripe CLI):
+stripe login
+stripe listen --forward-to localhost:4000/api/stripe/webhook
+#    It prints a signing secret (whsec_...). Put it in server/.env as
+#    STRIPE_WEBHOOK_SECRET=whsec_... and restart the server.
+
+# 3. Pay with the test card: 4242 4242 4242 4242, any future date, any CVC.
+```
+
+The server refuses to start with a key that isn't `sk_test_...` unless
+`NODE_ENV=production`.
 
 ## Deploy
 
@@ -106,6 +150,18 @@ in Safari and with third-party cookies blocked.
 4. Set `CLIENT_URL` on Render to the Vercel URL (saving redeploys the server).
    The server refuses POSTs from any other origin, and uses the `https` in this
    URL to mark the session cookie `Secure`.
+
+5. **Payments in production.** On Render add `STRIPE_SECRET_KEY` (your
+   `sk_test_...` key while testing). In the Stripe dashboard go to Developers
+   -> Webhooks -> Add endpoint:
+   - URL: `https://<your-render-service>.onrender.com/api/stripe/webhook`
+     (the Render address, not the Vercel one)
+   - Events: `checkout.session.completed`,
+     `checkout.session.async_payment_succeeded`, `checkout.session.expired`
+
+   Copy the endpoint's signing secret (`whsec_...`) into Render as
+   `STRIPE_WEBHOOK_SECRET`. The new `orders` tables are created by the
+   migration that runs on every deploy.
 
 Check: open the Vercel URL, sign up, refresh (you should stay signed in), and
 open `<vercel-url>/api/classes` to see JSON.

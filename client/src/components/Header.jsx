@@ -44,8 +44,7 @@ function AuthControls({ onSignIn, onSignOut, stacked = false }) {
 // Phones: logo, theme toggle and a hamburger that opens a dropdown panel.
 // From md: links and account controls sit inline in one row.
 export default function Header() {
-    const { logout } = useAuth();
-    const [authOpen, setAuthOpen] = useState(false);
+    const { logout, dialogOpen, openAuthDialog, closeAuthDialog } = useAuth();
     const [menuOpen, setMenuOpen] = useState(false);
 
     useEffect(() => {
@@ -57,7 +56,7 @@ export default function Header() {
 
     function openSignIn() {
         setMenuOpen(false);
-        setAuthOpen(true);
+        openAuthDialog();
     }
 
     return (
@@ -145,7 +144,7 @@ export default function Header() {
                 </div>
             )}
 
-            <AuthDialog open={authOpen} onClose={() => setAuthOpen(false)} />
+            <AuthDialog open={dialogOpen} onClose={closeAuthDialog} />
         </header>
     );
 }
