@@ -184,7 +184,7 @@ export default function CheckoutSuccess() {
 
             <a
                 href="/"
-                className="mt-10 inline-block text-sm text-ink-soft underline hover:text-sage"
+                className="mx-auto mt-10 block w-fit text-sm text-ink-soft underline hover:text-sage"
             >
                 Back to PulseFit
             </a>
