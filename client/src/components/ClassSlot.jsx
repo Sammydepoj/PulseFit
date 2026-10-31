@@ -19,7 +19,8 @@ export default function ClassSlot({ item, saved, onToggleSaved }) {
             <p className="text-xs font-bold text-sage">{item.time}</p>
             <p className="mt-0.5 font-semibold">{item.name}</p>
             <p className="text-sm text-ink-soft">
-                with {item.coach} · <span className="capitalize">{item.level}</span>
+                with {item.coach} ·{" "}
+                <span className="capitalize">{item.level}</span>
             </p>
             <SaveToggle
                 saved={saved}
